@@ -1,0 +1,40 @@
+﻿@page "{id:int}"
+@model EditModel
+
+<h2>Editar Usuario</h2>
+
+<form method="post">
+
+	<input type="hidden" asp-for="Usuario.Id" />
+
+	<div>
+		<label>Nombre</label>
+		<input asp-for="Usuario.Nombre" class="form-control" />
+	</div>
+
+	<div>
+		<label>Apellido</label>
+		<input asp-for="Usuario.Apellido" class="form-control" />
+	</div>
+
+	<div>
+		<label>Telefono</label>
+		<input asp-for="Usuario.Telefono"
+			   class="form-control"
+			   maxlength="10"
+			   pattern="[0-9]{10}"
+			   title="Debe tener 10 números" />
+	</div>
+
+	<div>
+		<label>Correo</label>
+		<input asp-for="Usuario.Correo" class="form-control" />
+	</div>
+
+	<br>
+
+	<button type="submit" class="btn btn-success">
+		Actualizar
+	</button>
+
+</form>

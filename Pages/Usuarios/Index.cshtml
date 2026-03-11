@@ -1,0 +1,269 @@
+﻿@page
+@model RazorPages.Pages.Usuarios.IndexModel
+
+
+<style>
+.col-fecha{
+display:none;
+}
+</style>
+
+<nav aria-label="breadcrumb">
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">Inicio</a>
+        </li>
+
+        ```
+        <li class="breadcrumb-item active">
+            Usuarios
+        </li>
+    </ol>
+    ```
+
+</nav>
+
+<h2>Usuarios</h2>
+
+<a asp-page="Create" class="btn btn-primary">Agregar Usuario</a>
+
+<br />
+<br />
+
+<!-- BUSCADOR -->
+
+<form method="get">
+
+    ```
+    <div class="row">
+
+        <div class="col-md-4">
+
+                <input type="text"
+                       id="buscarInput"
+                       name="Buscar"
+                       value="@Model.Buscar"
+                       class="form-control"
+                       placeholder="Buscar por nombre..." />
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button type="submit" class="btn btn-success">
+                Buscar
+            </button>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <select asp-for="Mostrar" class="form-control">
+
+                <option value="5">Mostrar 5</option>
+                <option value="10">Mostrar 10</option>
+                <option value="50">Mostrar 50</option>
+                <option value="100">Mostrar 100</option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <!-- FILTRO POR FECHA -->
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <label>Desde:</label>
+
+            <input type="date"
+                   name="Desde"
+                   value="@(Model.Desde?.ToString("yyyy-MM-dd"))"
+                   class="form-control" />
+
+        </div>
+
+        <div class="col-md-4">
+
+            <label>Hasta:</label>
+
+            <input type="date"
+                   name="Hasta"
+                   value="@(Model.Hasta?.ToString("yyyy-MM-dd"))"
+                   class="form-control" />
+
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end">
+
+            <button type="submit" class="btn btn-primary">
+                Aplicar
+            </button>
+
+            <a asp-page="Index" class="btn btn-danger ms-2">
+                Limpiar
+            </a>
+
+        </div>
+
+    </div>
+    ```
+
+</form>
+
+<br />
+
+    <table id="tablaUsuarios" class="table table-bordered table-striped table-hover">
+
+    ```
+    <thead>
+        <tr>
+
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+                <th class="col-fecha">Fecha Registro</th>
+            <th>Acciones</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model.Usuarios)
+        {
+            <tr>
+
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@item.Telefono</td>
+                <td>@item.Correo</td>
+                    <td class="col-fecha">@item.FechaRegistro.ToString("dd/MM/yyyy")</td>
+
+                <td>
+
+                    <a asp-page="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-warning">
+                        Editar
+                    </a>
+
+                    <a asp-page="Delete"
+                       asp-route-id="@item.Id"
+                       class="btn btn-danger">
+                        Eliminar
+                    </a>
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+    ```
+
+</table>
+
+<!-- PAGINACION -->
+
+<nav>
+
+    ```
+    <ul class="pagination">
+
+        @if (Model.PageNumber > 1)
+        {
+            <li class="page-item">
+
+                <a class="page-link"
+                   asp-page="./Index"
+                   asp-route-pageNumber="@(Model.PageNumber - 1)"
+                   asp-route-Buscar="@Model.Buscar"
+                   asp-route-Desde="@Model.Desde"
+                   asp-route-Hasta="@Model.Hasta"
+                   asp-route-Mostrar="@Model.Mostrar">
+
+                    «
+
+                </a>
+
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+
+                <a class="page-link"
+                   asp-page="./Index"
+                   asp-route-pageNumber="@i"
+                   asp-route-Buscar="@Model.Buscar"
+                   asp-route-Desde="@Model.Desde"
+                   asp-route-Hasta="@Model.Hasta"
+                   asp-route-Mostrar="@Model.Mostrar">
+
+                    @i
+
+                </a>
+
+            </li>
+        }
+
+        @if (Model.PageNumber < Model.TotalPages)
+        {
+            <li class="page-item">
+
+                <a class="page-link"
+                   asp-page="./Index"
+                   asp-route-pageNumber="@(Model.PageNumber + 1)"
+                   asp-route-Buscar="@Model.Buscar"
+                   asp-route-Desde="@Model.Desde"
+                   asp-route-Hasta="@Model.Hasta"
+                   asp-route-Mostrar="@Model.Mostrar">
+
+                    »
+
+                </a>
+
+            </li>
+        }
+            <script>
+
+                document.getElementById("buscarInput").addEventListener("keyup", function () {
+
+                    let filtro = this.value.toLowerCase();
+                    let filas = document.querySelectorAll("#tablaUsuarios tbody tr");
+
+                    filas.forEach(function (fila) {
+
+                        let texto = fila.textContent.toLowerCase();
+
+                        if (texto.includes(filtro)) {
+                            fila.style.display = "";
+                        } else {
+                            fila.style.display = "none";
+                        }
+
+                    });
+
+                });
+
+            </script>
+
+    </ul>
+    ```
+
+</nav>

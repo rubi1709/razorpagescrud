@@ -1,0 +1,76 @@
+﻿@page
+@model RazorPages.Pages.IndexModel
+
+<h1 class="text-center">Hola Mundo Razor Pages</h1>
+
+<hr>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!-- CARRUSEL -->
+
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+        @if (Model.Imagenes.Count > 0)
+        {
+            int i = 0;
+
+            foreach (var img in Model.Imagenes)
+            {
+                <div class="carousel-item @(i == 0 ? "active" : "")">
+
+                    <img src="/uploads/@img" class="d-block w-100" style="height:400px; object-fit:cover;">
+
+                </div>
+
+                i++;
+            }
+        }
+
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+</div>
+
+<br>
+<br>
+
+<h3>Subir nueva imagen</h3>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="mb-3">
+
+        <input type="file" name="Imagen" class="form-control" accept=".jpg,.png,.jpeg" />
+
+    </div>
+
+    <div class="g-recaptcha" data-sitekey="6Lf01kksAAAAADm7HEKCGTVVZqfqgfp3hTYvRmwW"></div>
+
+    <br>
+
+    <button class="btn btn-primary">Subir Imagen</button>
+
+</form>
+
+<br>
+<br>
+
+<div class="text-center">
+
+    <a asp-page="/Usuarios/Index" class="btn btn-success btn-lg">
+        Ir a Usuarios
+    </a>
+
+</div>
