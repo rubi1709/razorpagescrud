@@ -1,21 +1,23 @@
 using RazorPages.Data;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Razor Pages
 builder.Services.AddRazorPages();
 
-// Obtener DATABASE_URL de Railway
+// Obtener DATABASE_URL
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-// Convertirla al formato que Npgsql entiende
-var connectionString = new NpgsqlConnectionStringBuilder(databaseUrl)
-{
-    SslMode = SslMode.Require,
-    TrustServerCertificate = true
-}.ToString();
+var uri = new Uri(databaseUrl);
+var userInfo = uri.UserInfo.Split(':');
+
+var connectionString =
+    $"Host={uri.Host};" +
+    $"Port={uri.Port};" +
+    $"Database={uri.AbsolutePath.Trim('/')};" +
+    $"Username={userInfo[0]};" +
+    $"Password={userInfo[1]};" +
+    $"SSL Mode=Require;Trust Server Certificate=true";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
@@ -27,7 +29,6 @@ app.UseRouting();
 
 app.MapRazorPages();
 
-// Aplicar migraciones automáticamente
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
