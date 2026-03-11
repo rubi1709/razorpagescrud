@@ -5,8 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 
-// Railway usa esta variable automáticamente
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+// Variables que Railway crea automáticamente al conectar Postgres
+var host = Environment.GetEnvironmentVariable("PGHOST");
+var port = Environment.GetEnvironmentVariable("PGPORT");
+var database = Environment.GetEnvironmentVariable("PGDATABASE");
+var username = Environment.GetEnvironmentVariable("PGUSER");
+var password = Environment.GetEnvironmentVariable("PGPASSWORD");
+
+var connectionString =
+    $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
