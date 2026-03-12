@@ -20,18 +20,15 @@ namespace RazorPages.Pages.Usuarios
         public int PageNumber { get; set; } = 1;
         public int TotalPages { get; set; }
 
-        // BUSCADOR
         [BindProperty(SupportsGet = true)]
         public string? Buscar { get; set; }
 
-        // FILTRO POR FECHA
         [BindProperty(SupportsGet = true)]
         public DateTime? Desde { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public DateTime? Hasta { get; set; }
 
-        // MOSTRAR REGISTROS
         [BindProperty(SupportsGet = true)]
         public int Mostrar { get; set; } = 10;
 
@@ -41,7 +38,7 @@ namespace RazorPages.Pages.Usuarios
 
             var query = _context.Usuarios.AsQueryable();
 
-            // BUSCAR POR NOMBRE O APELLIDO
+            // BUSCADOR
             if (!string.IsNullOrWhiteSpace(Buscar))
             {
                 query = query.Where(u =>
@@ -49,13 +46,13 @@ namespace RazorPages.Pages.Usuarios
                     u.Apellido.Contains(Buscar));
             }
 
-            // FILTRO DESDE
+            // DESDE
             if (Desde.HasValue)
             {
                 query = query.Where(u => u.FechaRegistro >= Desde.Value);
             }
 
-            // FILTRO HASTA (INCLUYE TODO EL DIA)
+            // HASTA (incluye todo el día)
             if (Hasta.HasValue)
             {
                 var fechaHasta = Hasta.Value.AddDays(1);
