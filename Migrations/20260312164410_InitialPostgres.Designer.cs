@@ -12,8 +12,8 @@ using RazorPages.Data;
 namespace RazorPages.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260312163218_FixRenderMigration")]
-    partial class FixRenderMigration
+    [Migration("20260312164410_InitialPostgres")]
+    partial class InitialPostgres
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
