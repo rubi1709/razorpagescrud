@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
 using RazorPages.Data;
 using RazorPages.Models;
 
@@ -16,7 +15,11 @@ public class CreateModel : PageModel
     [BindProperty]
     public Usuario Usuario { get; set; }
 
-    public IActionResult OnPost()
+    public void OnGet()
+    {
+    }
+
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
@@ -24,8 +27,8 @@ public class CreateModel : PageModel
         }
 
         _context.Usuarios.Add(Usuario);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
-        return RedirectToPage("Index");
+        return RedirectToPage("./Index");
     }
 }

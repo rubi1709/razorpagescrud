@@ -24,6 +24,6 @@ namespace RazorPages.Models
         [EmailAddress(ErrorMessage = "Correo no válido")]
         public string Correo { get; set; }
 
-        public DateTime FechaRegistro { get; set; } = DateTime.Now;
+        public DateTime FechaRegistro { get; set; } = DateTime.UtcNow;
     }
 }
