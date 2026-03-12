@@ -212,7 +212,6 @@ C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\stat
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\RazorPages.csproj.Up2Date
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\RazorPages.dll
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\refint\RazorPages.dll
