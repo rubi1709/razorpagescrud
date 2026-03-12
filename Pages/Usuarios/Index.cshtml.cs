@@ -55,11 +55,11 @@ namespace RazorPages.Pages.Usuarios
                 query = query.Where(u => u.FechaRegistro >= Desde.Value);
             }
 
-            // FILTRO HASTA (CORREGIDO)
+            // FILTRO HASTA (INCLUYE TODO EL DIA)
             if (Hasta.HasValue)
             {
-                var fechaHasta = Hasta.Value.Date.AddDays(1).AddTicks(-1);
-                query = query.Where(u => u.FechaRegistro <= fechaHasta);
+                var fechaHasta = Hasta.Value.AddDays(1);
+                query = query.Where(u => u.FechaRegistro < fechaHasta);
             }
 
             int totalRegistros = await query.CountAsync();
