@@ -219,3 +219,5 @@ C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\refi
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\RazorPages.pdb
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\RazorPages.genruntimeconfig.cache
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\obj\Debug\net9.0\ref\RazorPages.dll
+C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\bin\Debug\net9.0\Npgsql.dll
+C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

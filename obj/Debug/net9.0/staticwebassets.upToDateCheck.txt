@@ -61,9 +61,9 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\uploads\ReglamentosUT.jpg
 wwwroot\uploads\imagen1.jpg
 wwwroot\uploads\imagen3.jpg
-wwwroot\uploads\ReglamentosUT.jpg
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\wwwroot\css\site.css
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\wwwroot\favicon.ico
 C:\Users\felir\source\repos\test_net\RazorPages\RazorPages\wwwroot\js\site.js

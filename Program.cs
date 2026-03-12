@@ -3,39 +3,39 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Razor Pages
 builder.Services.AddRazorPages();
 
-// Leer variables de Railway
-var host = Environment.GetEnvironmentVariable("PGHOST");
-var port = Environment.GetEnvironmentVariable("PGPORT");
-var database = Environment.GetEnvironmentVariable("PGDATABASE");
-var username = Environment.GetEnvironmentVariable("PGUSER");
-var password = Environment.GetEnvironmentVariable("PGPASSWORD");
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-// Crear cadena de conexión
-var connectionString =
-    $"Host={host};" +
-    $"Port={port};" +
-    $"Database={database};" +
-    $"Username={username};" +
-    $"Password={password};" +
-    $"SSL Mode=Require;" +
-    $"Trust Server Certificate=true";
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+    var uri = new Uri(databaseUrl);
+    var userInfo = uri.UserInfo.Split(':');
 
-// Registrar DbContext
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    var connectionString =
+        $"Host={uri.Host};" +
+        $"Port={uri.Port};" +
+        $"Database={uri.AbsolutePath.TrimStart('/')};" +
+        $"Username={userInfo[0]};" +
+        $"Password={userInfo[1]};" +
+        $"SSL Mode=Require;Trust Server Certificate=true";
+
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(connectionString));
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection")));
+}
 
 var app = builder.Build();
 
-// Middleware
 app.UseStaticFiles();
 app.UseRouting();
-
 app.MapRazorPages();
 
-// Aplicar migraciones automáticamente
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
